@@ -1,10 +1,1287 @@
 <!DOCTYPE html>
 <html lang="th">
-<head><meta charset="UTF-8"><title>week02</title></head>
-<body>
-<h1>หน้าแนะนำตัว</h1>
-<p>ชื่อเล่น:เติ้ล</p>
-<p>สาขา: คอมธุรกิจ</p>
-<p>ร้านโครงงาน: ร้านขายคอมพิวเตอร์</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLE COMPUTER - โครงงานร้านขายคอมพิวเตอร์</title>
+  <!-- Google Fonts: Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome สำหรับไอคอนสวยๆ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: rgba(18, 24, 38, 0.85);
+      --bg-card-hover: rgba(26, 35, 54, 0.95);
+      --primary: #00d2ff;
+      --primary-glow: rgba(0, 210, 255, 0.35);
+      --secondary: #3a7bd5;
+      --accent: #ff007f;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --card-radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Prompt', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(0, 210, 255, 0.12), transparent 45%),
+        radial-gradient(circle at 90% 40%, rgba(58, 123, 213, 0.15), transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(255, 0, 127, 0.07), transparent 45%);
+      color: var(--text-white);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-white);
+      text-decoration: none;
+    }
+
+    .brand i {
+      color: var(--primary);
+      filter: drop-shadow(0 0 10px var(--primary-glow));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .badge-branch {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #050b14;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+      width: 100%;
+    }
+
+    /* Section: Profile Banner */
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 2.2rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: #0b0f19;
+      box-shadow: 0 0 25px var(--primary-glow);
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .profile-title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .profile-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #ffffff, #a5f3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .profile-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .profile-meta i {
+      color: var(--primary);
+    }
+
+    /* Promo Banner */
+    .promo-banner {
+      background: linear-gradient(90deg, rgba(255, 0, 127, 0.2), rgba(0, 210, 255, 0.2));
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .promo-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .promo-content i {
+      font-size: 1.8rem;
+      color: #ff007f;
+    }
+
+    .promo-content strong {
+      color: #fff;
+    }
+
+    .promo-btn {
+      background: linear-gradient(135deg, var(--accent), #ff5722);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .promo-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Section: Store Hero */
+    .hero-store {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--primary);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      background: rgba(0, 210, 255, 0.05);
+    }
+
+    .hero-heading {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-sub {
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* Highlights Badges */
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .highlight-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .highlight-item:hover {
+      border-color: rgba(0, 210, 255, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .highlight-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 210, 255, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+
+    .highlight-text h4 {
+      font-size: 0.95rem;
+      color: var(--text-white);
+    }
+
+    .highlight-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: var(--primary);
+    }
+
+    /* Filter Buttons */
+    .filter-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary);
+      color: #0b0f19;
+      font-weight: 600;
+      border-color: var(--primary);
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 1.5rem;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(0, 210, 255, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px rgba(0, 210, 255, 0.15);
+    }
+
+    .product-img-box {
+      width: 100%;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-img-box {
+      transform: scale(1.05);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: rgba(0, 210, 255, 0.15);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 210, 255, 0.3);
+    }
+
+    .product-badge.hot {
+      background: rgba(255, 0, 127, 0.15);
+      color: #ff3399;
+      border-color: rgba(255, 0, 127, 0.4);
+    }
+
+    .product-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text-white);
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1rem;
+    }
+
+    .product-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .btn-detail {
+      background: transparent;
+      color: var(--text-white);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-detail:hover {
+      background: var(--primary);
+      color: #0b0f19;
+      font-weight: 600;
+      border-color: var(--primary);
+    }
+
+    /* Sets Comparison Table */
+    .sets-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .spec-table th, .spec-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .spec-table th {
+      color: var(--primary);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .spec-table tr:hover td {
+      background: rgba(0, 210, 255, 0.03);
+    }
+
+    .spec-highlight {
+      color: #ff007f;
+      font-weight: 600;
+    }
+
+    /* Interactive PC Builder Simulator */
+    .builder-card {
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.95), rgba(24, 33, 52, 0.95));
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      border-radius: var(--card-radius);
+      padding: 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .builder-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .builder-select {
+      width: 100%;
+      background: rgba(11, 15, 25, 0.9);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-white);
+      padding: 10px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .builder-select:focus {
+      border-color: var(--primary);
+    }
+
+    .builder-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 210, 255, 0.08);
+      border: 1px dashed rgba(0, 210, 255, 0.4);
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .builder-price-box {
+      font-size: 1.1rem;
+    }
+
+    .builder-price-total {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-left: 10px;
+    }
+
+    /* Customer Reviews / Testimonials */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    .review-stars {
+      color: #ffb703;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .review-text {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reviewer-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: #0b0f19;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .reviewer-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* FAQ Accordion */
+    .faq-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.1rem 1.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .faq-question i {
+      color: var(--primary);
+      transition: transform 0.3s;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.1rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Contact Box */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.95), rgba(30, 41, 59, 0.8));
+      border: 1px solid var(--border-color);
+      border-radius: var(--card-radius);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      margin-bottom: 3rem;
+    }
+
+    .contact-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-sub {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .btn-line {
+      background: #06c755;
+      color: #fff;
+    }
+
+    .btn-facebook {
+      background: #1877f2;
+      color: #fff;
+    }
+
+    .btn-tel {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-white);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-contact:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Floating Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 45px;
+      height: 45px;
+      background: var(--primary);
+      color: #0b0f19;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 5px 20px var(--primary-glow);
+      z-index: 99;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-4px);
+      background: #fff;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      background: rgba(11, 15, 25, 0.95);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 1.2rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .profile-card {
+        padding: 1.5rem;
+        text-align: center;
+        flex-direction: column;
+      }
+      .profile-meta {
+        justify-content: center;
+      }
+      .hero-heading {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- แถบเมนูด้านบน -->
+  <header class="navbar">
+    <a href="#top" class="brand">
+      <i class="fa-solid fa-microchip"></i>
+      <span>TLE COMPUTER</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">ผู้จัดทำ</a></li>
+      <li><a href="#products">สินค้า</a></li>
+      <li><a href="#specs">เซ็ตแนะนำ</a></li>
+      <li><a href="#builder">จำลองจัดสเปก</a></li>
+      <li><a href="#faq">คำถามที่พบบ่อย</a></li>
+      <li><a href="#contact">ติดต่อเรา</a></li>
+    </ul>
+    <span class="badge-branch">สาขาคอมพิวเตอร์ธุรกิจ</span>
+  </header>
+
+  <main class="container">
+
+    <!-- การ์ดแนะนำตัวผู้จัดทำ -->
+    <section class="profile-card" id="about">
+      <div class="profile-avatar">
+        <i class="fa-solid fa-user-astronaut"></i>
+      </div>
+      <div class="profile-info">
+        <p class="profile-title">ข้อมูลผู้จัดทำโครงงาน (Week 02)</p>
+        <h1 class="profile-name">เติ้ล (Tle)</h1>
+        <div class="profile-meta">
+          <span><i class="fa-solid fa-graduation-cap"></i> สาขา: คอมพิวเตอร์ธุรกิจ</span>
+          <span><i class="fa-solid fa-shop"></i> ร้านโครงงาน: ร้านขายคอมพิวเตอร์</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ป้ายโปรโมชั่นสุดพิเศษ (Promo Banner) -->
+    <section class="promo-banner">
+      <div class="promo-content">
+        <i class="fa-solid fa-fire"></i>
+        <div>
+          <strong>โปรโมชั่นเปิดร้านใหม่สัปดาห์นี้!</strong>
+          <span style="display:block; font-size: 0.85rem; color: #cbd5e1;">สั่งประกอบคอมพิวเตอร์วันนี้ ฟรีค่าประกอบ + ลง Windows แท้ + จัดสายสวยงาม</span>
+        </div>
+      </div>
+      <button class="promo-btn" onclick="alert('รับโค้ดส่วนลด TLE500 เรียบร้อย! สำหรับสั่งซื้อเซ็ตคอมพิวเตอร์')">
+        <i class="fa-solid fa-ticket"></i> รับส่วนลด 500 บาท
+      </button>
+    </section>
+
+    <!-- ส่วนหัวข้อแนะนำร้านค้าโครงงาน -->
+    <section class="hero-store">
+      <span class="hero-tag"><i class="fa-solid fa-bolt"></i> Computer & IT Hardware Store</span>
+      <h2 class="hero-heading">ร้านขายคอมพิวเตอร์และอุปกรณ์ไอทีครบวงจร</h2>
+      <p class="hero-sub">ศูนย์รวมคอมประกอบระดับมืออาชีพ โน้ตบุ๊กทำงาน-เล่นเกม การ์ดจอ ซีพียู อุปกรณ์เกมมิ่งเกียร์ พร้อมบริการจัดสเปกตามงบประมาณ ประกันศูนย์ไทย 100%</p>
+    </section>
+
+    <!-- จุดเด่นของร้าน (4 จุดเด่น) -->
+    <section class="highlights">
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="highlight-text">
+          <h4>ประกันศูนย์แท้ 100%</h4>
+          <p>เคลมง่าย สินค้าใหม่มือ 1 ทุกชิ้น</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="highlight-text">
+          <h4>จัดสเปกตามงบ</h4>
+          <p>ฟรีค่าประกอบและทดสอบสเปก</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="highlight-text">
+          <h4>จัดส่งด่วนทั่วไทย</h4>
+          <p>ห่อหุ้มกันกระแทกอย่างดี มั่นใจได้</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-headset"></i></div>
+        <div class="highlight-text">
+          <h4>บริการดูแลหลังการขาย</h4>
+          <p>ให้คำปรึกษาตลอดอายุการใช้งาน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- แค็ตตาล็อกสินค้าแนะนำ -->
+    <section id="products">
+      <div class="section-header">
+        <h3 class="section-title"><i class="fa-solid fa-layer-group"></i> หมวดหมู่สินค้าและบริการ</h3>
+        <div class="filter-buttons">
+          <button class="filter-btn active" onclick="filterItems('all')">ทั้งหมด</button>
+          <button class="filter-btn" onclick="filterItems('pc')">คอมประกอบ</button>
+          <button class="filter-btn" onclick="filterItems('laptop')">โน้ตบุ๊ก</button>
+          <button class="filter-btn" onclick="filterItems('gear')">เกมมิ่งเกียร์</button>
+          <button class="filter-btn" onclick="filterItems('service')">งานบริการ</button>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+
+        <!-- สินค้า 1: Gaming PC -->
+        <div class="product-card" data-cat="pc">
+          <span class="product-badge hot">🔥 ขายดีสุด</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-desktop"></i>
+          </div>
+          <h4 class="product-title">เซ็ตคอม Gaming Intel i5 + RTX 4060</h4>
+          <p class="product-desc">ลื่นทุกเกม AAA ในระดับ Full HD / 2K สตรีมเกม ตัดต่อวิดีโอ 4K ทำกราฟิกลื่นไหล</p>
+          <div class="product-footer">
+            <span class="product-price">฿24,900</span>
+            <button class="btn-detail" onclick="alert('เซ็ตนี้มาพร้อม Intel Core i5 Gen 13, RAM 16GB DDR5, RTX 4060 8GB, SSD M.2 1TB')">ดูสเปก</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 2: Budget PC -->
+        <div class="product-card" data-cat="pc">
+          <span class="product-badge">สุดคุ้ม</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-computer"></i>
+          </div>
+          <h4 class="product-title">เซ็ตคอม Budget Core i3 + GTX 1650</h4>
+          <p class="product-desc">เหมาะสำหรับเรียนออนไลน์ ทำงานเอกสาร เล่นเกมทั่วไป เช่น Valorant, Roblox, GTA V</p>
+          <div class="product-footer">
+            <span class="product-price">฿13,900</span>
+            <button class="btn-detail" onclick="alert('สเปก: Core i3 12th, RAM 16GB, GTX 1650 4GB, SSD 500GB')">ดูสเปก</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 3: Laptop Gaming -->
+        <div class="product-card" data-cat="laptop">
+          <span class="product-badge">ยอดนิยม</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <h4 class="product-title">Gaming Laptop จอ 144Hz</h4>
+          <p class="product-desc">พกพาสะดวก พร้อมลุยทุกสมรภูมิเกม จอภาพ IPS คมชัด รีเฟรชเรทลื่นสบายตา</p>
+          <div class="product-footer">
+            <span class="product-price">฿26,500</span>
+            <button class="btn-detail" onclick="alert('โน้ตบุ๊กเกมมิ่ง Ryzen 5 7000 Series + RTX 3050 จอ 15.6 นิ้ว 144Hz')">ดูสเปก</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 4: Ultrabook Laptop -->
+        <div class="product-card" data-cat="laptop">
+          <span class="product-badge">บางเบา</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-laptop"></i>
+          </div>
+          <h4 class="product-title">โน้ตบุ๊กทำงานสายออฟฟิศ Slim</h4>
+          <p class="product-desc">น้ำหนักเบาเพียง 1.3 กก. แบตเตอรี่อึด 10 ชม. เหมาะสำหรับนักเรียน นักศึกษา</p>
+          <div class="product-footer">
+            <span class="product-price">฿16,900</span>
+            <button class="btn-detail" onclick="alert('โน้ตบุ๊กทำงาน บางเบา พกพาง่าย จอถนอมสายตา แบตอึดทั้งวัน')">ดูสเปก</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 5: Gaming Keyboard -->
+        <div class="product-card" data-cat="gear">
+          <span class="product-badge">RGB</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-keyboard"></i>
+          </div>
+          <h4 class="product-title">Mechanical Keyboard RGB</h4>
+          <p class="product-desc">คีย์บอร์ดสวิตช์คุณภาพสูง กดมันส์ ตอบสนองฉับไว ไฟ RGB ปรับได้ 18 โหมด</p>
+          <div class="product-footer">
+            <span class="product-price">฿1,490</span>
+            <button class="btn-detail" onclick="alert('มีให้เลือกทั้ง Blue / Red / Brown Switch พร้อม Hot-swappable')">ดูสินค้า</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 6: Gaming Mouse -->
+        <div class="product-card" data-cat="gear">
+          <span class="product-badge">ไร้สาย</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-computer-mouse"></i>
+          </div>
+          <h4 class="product-title">Wireless Gaming Mouse 2.4GHz</h4>
+          <p class="product-desc">เมาส์น้ำหนักเบา เซนเซอร์ออปติคอลแม่นยำสูง ปรับ DPI ได้สูงสุด 16,000</p>
+          <div class="product-footer">
+            <span class="product-price">฿990</span>
+            <button class="btn-detail" onclick="alert('เชื่อมต่อไร้สาย 2.4Ghz ดีเลย์ต่ำ แบตเตอรี่ชาร์จไวใช้งานได้ 70 ชม.')">ดูสินค้า</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 7: Maintenance Service -->
+        <div class="product-card" data-cat="service">
+          <span class="product-badge">บริการ</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+          <h4 class="product-title">บริการซ่อม & ล้างเครื่อง</h4>
+          <p class="product-desc">ตรวจเช็กอาการ เปลี่ยนซิลิโคนระบายความร้อน ทำความสะอาดฝุ่น ลงวินโดวส์ใหม่</p>
+          <div class="product-footer">
+            <span class="product-price">เริ่มต้น ฿300</span>
+            <button class="btn-detail" onclick="alert('บริการตรวจเช็กอาการเครื่องฟรี หากไม่มีการเปลี่ยนอะไหล่')">สอบถาม</button>
+          </div>
+        </div>
+
+        <!-- สินค้า 8: Upgrade SSD/RAM -->
+        <div class="product-card" data-cat="service">
+          <span class="product-badge">บริการ</span>
+          <div class="product-img-box">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h4 class="product-title">อัปเกรด RAM / เปลี่ยน SSD เร็วแรง</h4>
+          <p class="product-desc">แก้ปัญหาคอมช้า ค้าง หน่วง เพิ่ม RAM และใส่ SSD M.2 NVMe ความเร็วสูง บูตเครื่องใน 5 วิ</p>
+          <div class="product-footer">
+            <span class="product-price">เริ่มต้น ฿890</span>
+            <button class="btn-detail" onclick="alert('บริการโคลน Windows ย้ายข้อมูลฟรีเมื่อซื้อ SSD กับทางร้าน')">สอบถาม</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ตารางเปรียบเทียบเซ็ตคอมยอดนิยม -->
+    <section class="sets-section" id="specs">
+      <h3 class="section-title"><i class="fa-solid fa-chart-simple"></i> ตารางเซ็ตคอมประกอบยอดนิยมประจำร้าน</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">เลือกสเปกที่ตอบโจทย์การใช้งานของคุณ สามารถปรับเปลี่ยนชิ้นส่วนได้ตามใจชอบ</p>
+      
+      <div class="table-responsive">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>เซ็ต / สเปก</th>
+              <th>ซีพียู (CPU)</th>
+              <th>การ์ดจอ (VGA)</th>
+              <th>แรม (RAM)</th>
+              <th>ความจุ (SSD)</th>
+              <th>เหมาะสำหรับการใช้งาน</th>
+              <th>ราคาโดยประมาณ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Set 1: Office & Study</strong></td>
+              <td>Intel Core i3 12100</td>
+              <td>Intel UHD Graphics</td>
+              <td>8GB DDR4</td>
+              <td>256GB M.2</td>
+              <td>เรียนออนไลน์, ทำเอกสาร, ดูหนัง YouTube</td>
+              <td class="spec-highlight">฿8,900</td>
+            </tr>
+            <tr>
+              <td><strong>Set 2: Gamer Starter</strong></td>
+              <td>AMD Ryzen 5 5500</td>
+              <td>GTX 1650 4GB</td>
+              <td>16GB DDR4</td>
+              <td>500GB NVMe</td>
+              <td>เล่นเกมทั่วไป Roblox, GTA V, Valorant</td>
+              <td class="spec-highlight">฿15,900</td>
+            </tr>
+            <tr>
+              <td><strong>Set 3: Pro Gamer & Streamer</strong></td>
+              <td>Intel Core i5 13400F</td>
+              <td>RTX 4060 8GB</td>
+              <td>16GB DDR5</td>
+              <td>1TB NVMe</td>
+              <td>เล่นเกมระดับสูงทุกเกม, สตรีมเกม, กราฟิก 3D</td>
+              <td class="spec-highlight">฿26,900</td>
+            </tr>
+            <tr>
+              <td><strong>Set 4: Creator Monster</strong></td>
+              <td>Intel Core i7 14700F</td>
+              <td>RTX 4070 SUPER 12GB</td>
+              <td>32GB DDR5</td>
+              <td>2TB NVMe</td>
+              <td>ตัดต่อวิดีโอ 8K, เรนเดอร์งานสถาปัตย์, AI Workload</td>
+              <td class="spec-highlight">฿54,900</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- เครื่องมือจำลองคำนวณราคาจัดสเปกคอม (Interactive PC Builder) -->
+    <section class="builder-card" id="builder">
+      <h3 class="section-title"><i class="fa-solid fa-calculator"></i> เครื่องมือจำลองประเมินราคาจัดสเปกคอม (Quick Estimate)</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">ทดลองเลือกชิ้นส่วนที่ต้องการ เพื่อคำนวณราคาประเมินเบื้องต้นได้ทันที</p>
+      
+      <div class="builder-grid">
+        <div class="builder-group">
+          <label><i class="fa-solid fa-microchip"></i> ซีพียู (CPU)</label>
+          <select id="cpuSelect" class="builder-select" onchange="calculateTotal()">
+            <option value="3500">Intel Core i3 12th (฿3,500)</option>
+            <option value="5500" selected>Intel Core i5 13th (฿5,500)</option>
+            <option value="7200">AMD Ryzen 5 7600 (฿7,200)</option>
+            <option value="12500">Intel Core i7 14th (฿12,500)</option>
+          </select>
+        </div>
+
+        <div class="builder-group">
+          <label><i class="fa-solid fa-memory"></i> การ์ดจอ (Graphics Card)</label>
+          <select id="gpuSelect" class="builder-select" onchange="calculateTotal()">
+            <option value="4500">GTX 1650 4GB (฿4,500)</option>
+            <option value="7900">RTX 3050 6GB (฿7,900)</option>
+            <option value="11500" selected>RTX 4060 8GB (฿11,500)</option>
+            <option value="23900">RTX 4070 SUPER 12GB (฿23,900)</option>
+          </select>
+        </div>
+
+        <div class="builder-group">
+          <label><i class="fa-solid fa-server"></i> หน่วยความจำ (RAM)</label>
+          <select id="ramSelect" class="builder-select" onchange="calculateTotal()">
+            <option value="1200">16GB DDR4 (฿1,200)</option>
+            <option value="2400" selected>16GB DDR5 (฿2,400)</option>
+            <option value="4200">32GB DDR5 (฿4,200)</option>
+          </select>
+        </div>
+
+        <div class="builder-group">
+          <label><i class="fa-solid fa-hard-drive"></i> อุปกรณ์เก็บข้อมูล (SSD M.2)</label>
+          <select id="ssdSelect" class="builder-select" onchange="calculateTotal()">
+            <option value="1400">SSD M.2 500GB NVMe (฿1,400)</option>
+            <option value="2600" selected>SSD M.2 1TB NVMe (฿2,600)</option>
+            <option value="4800">SSD M.2 2TB NVMe (฿4,800)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="builder-result">
+        <div class="builder-price-box">
+          <span>รวมราคาชิ้นส่วนหลักประเมิน:</span>
+          <span class="builder-price-total" id="totalPrice">฿22,000</span>
+          <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">* ราคานี้รวม Mainboard + Case + พาวเวอร์ซัพพลายพื้นฐานแล้ว</span>
+        </div>
+        <button class="btn-detail" style="background: var(--primary); color: #0b0f19; font-weight: 600; padding: 10px 20px;" onclick="orderCustomSpec()">
+          <i class="fa-solid fa-paper-plane"></i> สั่งประกอบสเปกนี้
+        </button>
+      </div>
+    </section>
+
+    <!-- รีวิวและความประทับใจจากลูกค้า (Customer Reviews) -->
+    <section>
+      <h3 class="section-title"><i class="fa-solid fa-star"></i> รีวิวจากลูกค้าที่สั่งประกอบคอมกับร้าน TLE</h3>
+      <div class="review-grid">
+        <div class="review-card">
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">"สั่งเซ็ต i5 + RTX 4060 ไป จัดสายเนียนมาก เล่น Valorant กับ Cyberpunk ลื่นหัวแตก ส่งถึงบ้านไววันเดียวได้เลยครับ"</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">ก</div>
+            <div>
+              <div class="reviewer-name">คุณกิตติศักดิ์</div>
+              <small style="color: var(--text-muted);">ลูกค้าสั่งซื้อออนไลน์</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">"น้องเติ้ลให้คำแนะนำดีมาก จัดสเปกตามงบ 15,000 บาท ได้สเปกคุ้มเกินราคา มีลงโปรแกรมพร้อมเปิดเครื่องใช้งานได้เลย"</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">ส</div>
+            <div>
+              <div class="reviewer-name">คุณสมชาย พ.</div>
+              <small style="color: var(--text-muted);">ลูกค้าหน้าร้าน</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">"เอาโน้ตบุ๊กไปอัปเกรด SSD กับเพิ่มแรม ช่างทำเร็วมาก เครื่องกลับมาเร็วเหมือนซื้อใหม่ ประทับใจงานบริการครับ"</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">ณ</div>
+            <div>
+              <div class="reviewer-name">คุณณัฐวุฒิ</div>
+              <small style="color: var(--text-muted);">ลูกค้ารับบริการอัปเกรด</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- คำถามที่พบบ่อย (FAQ Accordion) -->
+    <section class="faq-section" id="faq">
+      <h3 class="section-title"><i class="fa-solid fa-circle-question"></i> คำถามที่พบบ่อย (FAQ)</h3>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>สั่งประกอบคอมพิวเตอร์ ใช้เวลากี่วัน?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          ทางร้านใช้เวลาประกอบ จัดสายไฟ และทดสอบระบบ (Burn-in test) ภายใน 1-2 วันทำการ และจัดส่งให้ถึงมือลูกค้าอย่างปลอดภัยครับ
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>สินค้ามีการรับประกันอย่างไรบ้าง?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          อุปกรณ์ทุกชิ้นเป็นของแท้ศูนย์ไทยมือ 1 รับประกัน 3 ปีเต็ม (ตามเงื่อนไขของแต่ละชิ้นส่วน) และฟรีค่าแรงบริการซ่อมตลอด 1 ปีเต็มจากทางร้านครับ
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>มีบริการผ่อนชำระ หรือเก็บเงินปลายทางไหม?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          รองรับการผ่อนชำระ 0% สูงสุด 10 เดือนผ่านบัตรเครดิตธนาคารชั้นนำ และมีบริการเก็บเงินปลายทาง (COD) ทั่วประเทศ
+        </div>
+      </div>
+    </section>
+
+    <!-- กล่องติดต่อร้านค้า -->
+    <section class="contact-card" id="contact">
+      <h3 class="contact-title"><i class="fa-regular fa-comments"></i> สนใจสั่งซื้อหรือสอบถามจัดสเปกคอมพิวเตอร์</h3>
+      <p class="contact-sub">ติดต่อร้านโครงงาน TLE COMPUTER ได้ทุกช่องทาง ยินดีให้คำปรึกษาฟรี!</p>
+      <div class="contact-buttons">
+        <a href="https://line.me" target="_blank" class="btn-contact btn-line"><i class="fa-brands fa-line"></i> LINE Official</a>
+        <a href="https://facebook.com" target="_blank" class="btn-contact btn-facebook"><i class="fa-brands fa-facebook"></i> Facebook Page</a>
+        <a href="tel:0812345678" class="btn-contact btn-tel"><i class="fa-solid fa-phone"></i> 08X-XXX-XXXX</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ปุ่มลอยกลับขึ้นด้านบน (Back to Top) -->
+  <a href="#top" class="back-to-top" title="กลับขึ้นด้านบน">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <!-- ท้ายหน้าเว็บ -->
+  <footer>
+    <p>© 2026 TLE COMPUTER - โครงงานสาขาคอมพิวเตอร์ธุรกิจ (Week 02) | จัดทำโดย เติ้ล</p>
+  </footer>
+
+  <!-- JavaScript สำหรับความสามารถแบบ Interactive -->
+  <script>
+    // ฟังก์ชันคำนวณราคาประเมินจัดสเปก
+    function calculateTotal() {
+      const cpu = parseInt(document.getElementById('cpuSelect').value);
+      const gpu = parseInt(document.getElementById('gpuSelect').value);
+      const ram = parseInt(document.getElementById('ramSelect').value);
+      const ssd = parseInt(document.getElementById('ssdSelect').value);
+      const baseOtherParts = 4500; // ค่าบอร์ด + พาวเวอร์ + เคส
+
+      const grandTotal = cpu + gpu + ram + ssd + baseOtherParts;
+      document.getElementById('totalPrice').innerText = '฿' + grandTotal.toLocaleString();
+    }
+
+    function orderCustomSpec() {
+      const total = document.getElementById('totalPrice').innerText;
+      alert('บันทึกสเปกที่คุณเลือกเรียบร้อย! ราคาประเมินรวม: ' + total + '\nกดตกลงเพื่อติดต่อร้านค้าทาง LINE ได้เลยครับ');
+    }
+
+    // ฟังก์ชันกรองหมวดหมู่สินค้า
+    function filterItems(category) {
+      // ปรับปุ่ม active
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // ซ่อน/แสดงการ์ดสินค้า
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // ฟังก์ชันเปิด/ปิด FAQ Accordion
+    function toggleFaq(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('i');
+      if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        answer.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // เรียกคำนวณรอบแรกตอนเปิดหน้าเว็บ
+    calculateTotal();
+  </script>
+
 </body>
 </html>
